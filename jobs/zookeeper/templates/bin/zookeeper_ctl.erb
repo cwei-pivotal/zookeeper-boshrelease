@@ -7,7 +7,7 @@ source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'zookeeper'
 export ZOOPIDFILE=$ZOOKEEPER_PID_DIR/zookeeper.pid
 
 # Set the hostname
-hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
+#hostname <%= index %>.<%= name %>.<%= spec.networks.methods(false).grep(/[^=]$/).first.to_s %>.<%= spec.deployment %>.<%= spec.dns_domain_name %>
 
 case $1 in
 

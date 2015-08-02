@@ -1,0 +1,79 @@
+compilation:
+  reuse_compilation_vms: true
+  workers: 2
+  network: default
+  cloud_properties:
+    ram: 1024
+    disk: 4096
+    cpu: 2
+director_uuid: 4e7180ae-de21-4627-9c03-6ffaaaf9a882
+jobs:
+- instances: 3
+  name: zookeeper_z1
+  networks:
+  - name: default
+    static_ips:
+    - 10.10.172.110
+    - 10.10.172.111
+    - 10.10.172.112
+  resource_pool: small_z1
+  persistent_disk_pool: cf-zk-disk-pool
+  template: zookeeper
+meta:
+  environment: zookeeper-boshrelease
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: '2889'
+name: zookeeper-boshrelease
+networks:
+- name: default
+  subnets:
+  - range: 10.10.172.0/24
+    gateway: 10.10.172.10
+    dns:
+    - 10.10.10.74
+    static:
+    - 10.10.172.110
+    - 10.10.172.111
+    - 10.10.172.112
+    reserved:
+    - 10.10.172.1-10.10.172.9
+    - 10.10.172.11-10.10.172.109
+    - 10.10.172.117-10.10.172.254
+    cloud_properties:
+      name: vLan 172
+properties:
+  zookeeper:
+    secret: 0CD82648-3A68-45A5-B1D7-8D4DA2BFCB06
+    servers:
+    - 10.10.172.110
+    - 10.10.172.111
+    - 10.10.172.112
+releases:
+- name: zookeeper-boshrelease
+  version: latest
+resource_pools:
+- name: small_z1
+  stemcell:
+    name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+    version: '2889'
+  network: default
+  cloud_properties:
+    ram: 1024
+    disk: 4096
+    cpu: 2
+    datacenters:
+    - clusters:
+      - Cloud Computing Division Cluster:
+          resource_pool: Cloud Foundry Demo
+  env:
+    bosh:
+      password: "$6$61c2ae44c0b4e9a2$jHUhtaAQWTKjHzmqAN75YZTklketBzDmONJuh3tueW7Uz3tzUHn9T3FBEmgBCsUz/Q1IVQxIoqzmjgEyV9vnT0"
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
+disk_pools:
+- name: cf-zk-disk-pool
+  disk_size: 4096

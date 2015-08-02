@@ -51,10 +51,12 @@ git push origin master --tags
 ## Disclaimer
 
 This is a development release and a work in progress. Please log issues. This release has been tested against AWS EC2 and OpenStack BOSH CPIs (Cloud Provider Interface).
+Tested against Pivotal Cloud Foundry v1.5.x on vSphere
 
 ## Copyright and Credits
 
 &copy; 2014, Murali Raju <murali.raju@appliv.com> [@murraju][3]
+
 
 
 [1]: https://github.com/murraju/insightfactory-boshrelease
